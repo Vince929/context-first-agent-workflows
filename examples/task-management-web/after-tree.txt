@@ -1,0 +1,16 @@
+src/
+  app/
+    platform/http/
+    routes/
+    ui/
+  modules/
+    task-management/
+      pages/TaskListPage.tsx
+      components/TaskFilterPanel.tsx
+      components/TaskTable.tsx
+      api/taskApi.ts
+      state/taskListState.ts
+      domain/taskQuery.ts
+      model/task.ts
+tools/
+  maintenance/

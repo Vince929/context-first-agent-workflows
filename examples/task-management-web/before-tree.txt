@@ -1,0 +1,14 @@
+src/
+  components/
+    FilterPanel.tsx
+    TaskTable.tsx
+  pages/
+    TaskListPage.tsx
+  services/
+    taskService.ts
+  models/
+    task.ts
+  store/
+    taskSlice.ts
+  utils/
+    query.ts
