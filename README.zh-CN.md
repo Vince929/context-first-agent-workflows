@@ -1,14 +1,18 @@
-# Context-First Agent Workflows
+# Context-First
 
-> 先帮助 Coding Agent 找到正确上下文，再让它修改代码。
+> 让 Coding Agent 在存量项目中更快产出正确改动。
 
-这是一个面向存量项目的、与具体工具无关的 AI Coding Agent 工作流与 Skill 包。它将 AI 提效拆为三个相互配合的问题：
+`Context-First Agent Workflows` 是一套与具体工具无关的 Skill 包和方法论，目标是提高 Coding Agent 在存量项目中的**正确改动交付速度**（time-to-correct-change）。
 
-1. **结构**：用 `app + modules + tools` 让业务代码具备可预测的归属；
-2. **导航**：用精炼的 `PROJECT-MAP.md` 降低 AI 进入陌生仓库时的冷启动成本；
-3. **执行**：由人作目标与取舍决策，AI 在最小真实上下文中完成最小正确改动。
+Coding Agent 通常不慢在生成代码，而是慢在生成**正确改动之前**。在写代码前，它需要支付一笔**上下文税**（Context Tax）：找到需求所属的业务模块、追踪当前生效的主链路、排除相似但无关的实现，并确定必须如何验证。
 
-目标不是让 AI 更快读完整个仓库，而是让它读取**更少的无关代码**、产生更小的变更面，并将验证交给能提供真实证据的环境。
+Context-First 通过三层机制降低这笔上下文税：
+
+1. **结构**：用 `app + modules + tools` 让业务上下文局部化；
+2. **导航**：用精炼的 `PROJECT-MAP.md` 降低进入陌生仓库时的冷启动成本；
+3. **执行**：由人作目标与取舍决策，AI 在最小真实上下文中完成最小、可验证的正确改动。
+
+目标不是让模型吐出 token 更快，而是让 Agent 读取**更少无关代码**、减少无关改动和返工回合，并更快到达能提供真实证据的验证环境。
 
 ## 三层模型
 
@@ -20,11 +24,11 @@
   -> 真实环境验证为下一轮修复提供证据
 ```
 
-| 层次 | 对应产物 | 解决的问题 |
+| 层次 | 对应产物 | 提速目标 |
 | --- | --- | --- |
-| 结构层 | `skills/ai-friendly-refactor/` | 业务请求的代码应如何局部化？ |
-| 导航层 | `skills/project-map/` | AI 初次进入陌生项目时应从哪里开始阅读？ |
-| 执行层 | `skills/context-first-code/` | 人与 AI 如何划分决策、执行和验证？ |
+| 结构层 | `skills/ai-friendly-refactor/` | 通过业务上下文局部化，降低长期代码检索成本。 |
+| 导航层 | `skills/project-map/` | 缩短 Agent 初次找到相关文件前的冷启动时间。 |
+| 执行层 | `skills/context-first-code/` | 在找到上下文后，减少无关改动与返工回合。 |
 
 ## 快速开始
 
@@ -35,13 +39,15 @@ mkdir -p .claude/skills
 cp -R skills/* .claude/skills/
 ```
 
-2. 从模板创建项目地图：
+2. 显式要求 Agent 调用 `project-map` 创建 `PROJECT-MAP.md`。例如：
 
-```bash
-cp templates/PROJECT-MAP.md ./PROJECT-MAP.md
+```text
+使用 project-map 为当前仓库生成一份精炼的 PROJECT-MAP.md。
 ```
 
-3. 显式要求 Agent 创建或增量更新项目地图；之后将地图作为项目任务的首轮导航上下文。
+该 Skill 会执行最小导航扫描并写入地图。`templates/PROJECT-MAP.md` 只用于你希望手工起草或维护地图时。
+
+3. 将生成的地图作为项目任务的首轮导航上下文；只有模块、入口或核心链路等高价值导航事实变化时，才再次调用 `project-map` 增量更新。
 
 4. 当仓库需要模块迁移、目录治理或跨文件重构时，调用 `ai-friendly-refactor`。它会先分析、给出迁移计划，并在得到明确批准后才编辑实现文件。
 
@@ -66,7 +72,7 @@ benchmarks/   案例研究与报告协议
 
 ## 讨论与证据
 
-本项目的设计主张应被案例与数据检验，而不是停留在目录命名偏好。建议记录：首次找到相关文件的时间、首轮读取文件数、用户澄清轮次、变更文件数、遗漏依赖导致的验证失败，以及维护者与 Agent 的定性反馈。
+本项目的设计主张应被案例与数据检验，而不是停留在目录命名偏好。建议记录：首次找到相关文件的时间、首轮读取文件数、从需求到正确改动所需的时间（须说明任务与环境限制）、用户澄清与返工轮次、变更文件数、遗漏依赖导致的验证失败，以及维护者与 Agent 的定性反馈。
 
 请在 GitHub Discussions 讨论方法与反例，在 Issues 提交具体问题或兼容性诉求。参见[案例协议](benchmarks/task-protocol.md)，以不暴露私有代码的方式发表可比较案例。
 

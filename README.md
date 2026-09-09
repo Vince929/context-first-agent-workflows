@@ -1,14 +1,18 @@
-# Context-First Agent Workflows
+# Context-First
 
-> Help coding agents find the right context before they change code.
+> Faster correct code changes for coding agents.
 
-`Context-First Agent Workflows` is a small, tool-agnostic skill pack and method for working with coding agents in existing repositories. It treats agent productivity as three connected problems:
+`Context-First Agent Workflows` is a tool-agnostic skill pack and methodology for improving **time-to-correct-change** in existing repositories.
 
-1. **Structure** — keep the codebase predictable with `app + modules + tools`.
-2. **Navigation** — maintain a compact `PROJECT-MAP.md` for cold-start orientation.
-3. **Execution** — let humans make decisions while agents implement minimal, evidence-driven changes.
+Coding agents are already fast at generating code. In existing repositories, they are often slow at generating the *right* change. Before an agent writes code, it pays a **context tax**: finding the business module that owns a request, tracing the active path, excluding similar but irrelevant code, and determining what must be validated.
 
-The goal is not to make agents read the whole repository faster. It is to help them read **less irrelevant code**, make smaller changes, and hand validation back to the environment that can provide real evidence.
+Context-First reduces that context tax through three connected layers:
+
+1. **Structure** — `app + modules + tools` keeps business context local.
+2. **Navigation** — `PROJECT-MAP.md` provides a compact cold-start index.
+3. **Execution** — humans make decisions while agents implement minimal, evidence-driven changes.
+
+The goal is not to make models emit tokens faster. It is to help agents read **less irrelevant code**, make smaller correct changes, and reach real-environment validation with fewer avoidable search and repair loops.
 
 ## The model
 
@@ -20,11 +24,11 @@ User goal
   -> real environment validation supplies evidence for the next iteration
 ```
 
-| Layer | Artifact | Main question it answers |
+| Layer | Artifact | Acceleration target |
 | --- | --- | --- |
-| Structure | `skills/ai-friendly-refactor/` | Where should code live so a business request has local context? |
-| Navigation | `skills/project-map/` | Where should an agent start reading an unfamiliar repository? |
-| Execution | `skills/context-first-code/` | How should people and agents divide decisions, implementation, and validation? |
+| Structure | `skills/ai-friendly-refactor/` | Reduce long-term context search cost by keeping a business request local. |
+| Navigation | `skills/project-map/` | Reduce cold-start time before an agent finds the first relevant files. |
+| Execution | `skills/context-first-code/` | Reduce unnecessary changes and repair loops after context is found. |
 
 ## Quick start
 
@@ -35,13 +39,15 @@ mkdir -p .claude/skills
 cp -R skills/* .claude/skills/
 ```
 
-2. Create a compact project map from the template:
+2. Ask your agent to invoke `project-map` explicitly to create `PROJECT-MAP.md`. For example:
 
-```bash
-cp templates/PROJECT-MAP.md ./PROJECT-MAP.md
+```text
+Use project-map to generate a compact PROJECT-MAP.md for this repository.
 ```
 
-3. Ask your agent to generate or update the map explicitly, then use it as the first navigation step for project-specific work.
+The skill performs the minimal navigation scan and writes the map. Use `templates/PROJECT-MAP.md` only when you want to draft or curate a map manually.
+
+3. Use the generated map as the first navigation step for project-specific work, and invoke `project-map` again only when high-value navigation facts change.
 
 4. When a repository needs structural work, invoke `ai-friendly-refactor`; it will analyze first, propose a migration plan, and wait for explicit approval before editing implementation files.
 
@@ -69,8 +75,9 @@ benchmarks/   Case-study protocol and reporting template
 This project makes design claims that should be tested, not accepted on naming preference. Good evidence includes:
 
 - time-to-first-relevant-file for a representative task;
-- number of files and directories read before the first edit;
-- number of user clarification rounds;
+- files and directories read before the first edit;
+- time-to-correct-change, with task and environment limitations stated;
+- user clarification rounds and repair loops;
 - changed-file count and review surface;
 - validation failures caused by missed dependencies;
 - qualitative feedback from maintainers and agents.
