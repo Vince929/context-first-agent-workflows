@@ -51,7 +51,13 @@ The skill performs the minimal navigation scan and writes the map. Use `template
 
 4. When a repository needs structural work, invoke `ai-friendly-refactor`; it will analyze first, propose a migration plan, and wait for explicit approval before editing implementation files.
 
+5. When creating or revising a technical design, research report, conclusion, incident review, migration, or release document, invoke `human-readable-doc`; it requires the first chapter to contain a summary, Markdown table, and Mermaid overview diagram.
+
 See [Skills](skills/README.md), [adoption guidance](docs/adoption.md), and the [reference example](examples/task-management-web/README.md).
+
+## Human-readable documents
+
+The skill pack also includes `human-readable-doc` for technical designs, research reports, conclusions, incident reviews, migrations, and release documents. It keeps claims reviewable by requiring a table of contents and placing a summary, Markdown table, and Mermaid overview diagram in chapter one; it also distinguishes confirmed facts, conclusions, and open items.
 
 ## What this is not
 
@@ -59,6 +65,7 @@ See [Skills](skills/README.md), [adoption guidance](docs/adoption.md), and the [
 - Not a claim that every project must use the same source-root path or module internals.
 - Not a generic `shared/`, `common/`, or `utils/` convention.
 - Not a request for agents to autonomously redesign systems without human decisions.
+- Not a license to invent metrics, causes, capabilities, or conclusions in human-facing documents.
 
 ## Repository layout
 
