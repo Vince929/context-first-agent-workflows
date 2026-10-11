@@ -4,6 +4,7 @@ Each directory contains a standalone `SKILL.md`. The skills are written in a bro
 
 | Skill | Use it when | Outcome |
 | --- | --- | --- |
+| [`fast-ai`](fast-ai/SKILL.md) | Any project-related task, to auto-select the right pack skill from one default entry point | A single routing decision that dispatches to the matched skill |
 | [`context-first-code`](context-first-code/SKILL.md) | A local implementation, diagnosis, or well-scoped change is requested | Minimal necessary context, minimal correct diff, explicit validation handoff |
 | [`project-map`](project-map/SKILL.md) | A user explicitly asks to create or update a project map | A compact root `PROJECT-MAP.md` for cold-start navigation |
 | [`ai-friendly-refactor`](ai-friendly-refactor/SKILL.md) | A module migration, directory redesign, codebase restructuring, or large file split is requested | A human-approved migration to `app + modules + tools` boundaries |
@@ -23,6 +24,9 @@ For other agents, preserve each folder and its `SKILL.md`; adjust only discovery
 ## Skill selection
 
 ```text
+Is the request project-related and should the agent pick the skill automatically?
+  -> fast-ai (route first, then run the matched skill)
+
 Is the requested change local and behaviorally clear?
   -> context-first-code
 
