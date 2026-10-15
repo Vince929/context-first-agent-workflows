@@ -1,15 +1,15 @@
 ---
-name: context-first-code
+name: fast-ai-code
 description: Execute well-scoped coding work with minimal necessary context, minimal correct diffs, and explicit real-environment validation handoff. Use for project-specific implementation, diagnosis, clarification, and fixes that do not require architectural migration.
 ---
 
-# Context-First Code
+# Fast AI Code
 
 ## Purpose
 
 Use this workflow for fast, safe collaboration on local implementation work. The human supplies goals, constraints, business decisions, and real-environment evidence. The agent reads only the facts that can change the implementation decision, then makes the smallest correct change.
 
-This workflow is not for directory migration, module boundary redesign, broad file moves, or architecture refactoring. Use `ai-friendly-refactor` for those tasks.
+This workflow is not for directory migration, module boundary redesign, broad file moves, or architecture refactoring. Use `fast-ai-refactor` for those tasks.
 
 ## Decision boundary
 
@@ -55,7 +55,7 @@ Default to the shortest change that satisfies the confirmed request:
 - keep business-private code inside its owning module;
 - if a business source file becomes too large, split only along clear responsibility boundaries and preserve its public behavior.
 
-If the necessary work changes module boundaries, moves many files, modifies public contracts, or requires an architectural choice, stop and switch to `ai-friendly-refactor`.
+If the necessary work changes module boundaries, moves many files, modifies public contracts, or requires an architectural choice, stop and switch to `fast-ai-refactor`.
 
 ## Validation boundary
 
@@ -82,4 +82,4 @@ Keep the final response concise:
 
 - “Add a required field to the existing form.” -> Read the form, its submit contract, direct consumer, and relevant type; make the smallest compatible change.
 - “Here is a real TypeScript error after your change.” -> Read the error and the direct symbols it names; repair only the conflict.
-- “Move all order code into a new module.” -> Do not start editing; use `ai-friendly-refactor` and produce a plan first.
+- “Move all order code into a new module.” -> Do not start editing; use `fast-ai-refactor` and produce a plan first.

@@ -1,6 +1,6 @@
 ---
 name: fast-ai
-description: fast-ai 技能包的总入口与路由器。适用于任何项目相关的编码、咨询、澄清、定位、排查、实现、重构、迁移、代码阅读或文档撰写任务；先判断本次任务应调用哪个 fast-ai 子技能（fast-ai-code、fast-ai-ai-friendly-refactor、fast-ai-project-map、fast-ai-human-readable-doc），再立即按该子技能执行。仅在纯通用知识问答或与项目无关的闲聊时不启用。
+description: fast-ai 技能包的总入口与路由器。适用于任何项目相关的编码、咨询、澄清、定位、排查、实现、重构、迁移、代码阅读或文档撰写任务；先判断本次任务应调用哪个 fast-ai 子技能（fast-ai-code、fast-ai-refactor、fast-ai-map、fast-ai-doc），再立即按该子技能执行。仅在纯通用知识问答或与项目无关的闲聊时不启用。
 ---
 
 # Fast AI — 技能包总入口
@@ -11,14 +11,14 @@ description: fast-ai 技能包的总入口与路由器。适用于任何项目�
 
 子技能与适用场景：
 
-| 子技能 | 源码包名 | 适用场景 |
-| --- | --- | --- |
-| `fast-ai-code` | `context-first-code` | 项目内的实现、修改、定位、排查、澄清、基于真实报错的最小修复，以及普通编码任务 |
-| `fast-ai-ai-friendly-refactor` | `ai-friendly-refactor` | 项目重构、模块迁移、目录治理、文件拆分、代码去重、架构调整 |
-| `fast-ai-project-map` | `project-map` | 用户明确要求创建 / 生成 / 更新项目地图或 `PROJECT-MAP.md` |
-| `fast-ai-human-readable-doc` | `human-readable-doc` | 技术设计、架构、API、研究报告、结论、事故复盘、迁移 / 发布方案等文档的撰写或修订 |
+| 子技能 | 适用场景 |
+| --- | --- |
+| `fast-ai-code` | 项目内的实现、修改、定位、排查、澄清、基于真实报错的最小修复，以及普通编码任务 |
+| `fast-ai-refactor` | 项目重构、模块迁移、目录治理、文件拆分、代码去重、架构调整 |
+| `fast-ai-map` | 用户明确要求创建 / 生成 / 更新项目地图或 `PROJECT-MAP.md` |
+| `fast-ai-doc` | 技术设计、架构、API、研究报告、结论、事故复盘、迁移 / 发布方案等文档的撰写或修订 |
 
-> 子技能可能以 `fast-ai-` 前缀安装，也可能保留源码包名。上表两列等价，按当前环境中实际可调用的名称路由。
+> 子技能统一使用 `fast-ai-` 前缀；源码目录名、`SKILL.md` 的 `name`、安装目录名和路由调用名称保持一致。总入口与四个子技能平铺在同一个技能发现目录下。
 
 ## 判定与路由流程
 
@@ -32,17 +32,17 @@ description: fast-ai 技能包的总入口与路由器。适用于任何项目�
 | 任务特征 | 路由到 |
 | --- | --- |
 | 修改 / 新增 / 修复项目代码、定位问题、回答项目实现问题、按真实报错做最小修复 | `fast-ai-code` |
-| 移动文件、调整模块边界、重组目录、拆分大文件、消除重复、迁移到 `app + modules + tools` | `fast-ai-ai-friendly-refactor` |
-| 明确要求“项目地图 / PROJECT-MAP / 生成项目地图 / 更新项目地图” | `fast-ai-project-map` |
-| 产出可审阅的 Markdown 文档（设计、研究、结论、复盘、迁移、发布） | `fast-ai-human-readable-doc` |
+| 移动文件、调整模块边界、重组目录、拆分大文件、消除重复、迁移到 `app + modules + tools` | `fast-ai-refactor` |
+| 明确要求“项目地图 / PROJECT-MAP / 生成项目地图 / 更新项目地图” | `fast-ai-map` |
+| 产出可审阅的 Markdown 文档（设计、研究、结论、复盘、迁移、发布） | `fast-ai-doc` |
 
 判定优先级与例外：
 
 - 只读浏览 / 理解代码用于回答问题的，属于 `fast-ai-code`，不是重构。
-- 涉及模块边界、跨模块契约、批量文件搬迁的，一律走 `fast-ai-ai-friendly-refactor`，由它先出计划、等批准。
+- 涉及模块边界、跨模块契约、批量文件搬迁的，一律走 `fast-ai-refactor`，由它先出计划、等批准。
 - 任务同时包含代码与文档：先按主交付物执行；重构类先产出计划，文档通常在实现确定后单独用文档技能。
-- `fast-ai-project-map` 只在用户明确要求时使用；`fast-ai-code` 不自动生成或更新地图。
-- 单个业务文件超阈值的拆分：本轮改动顺带按职责最小拆分 → `fast-ai-code`；专门的目录 / 边界治理 → `fast-ai-ai-friendly-refactor`。
+- `fast-ai-map` 只在用户明确要求时使用；`fast-ai-code` 不自动生成或更新地图。
+- 单个业务文件超阈值的拆分：本轮改动顺带按职责最小拆分 → `fast-ai-code`；专门的目录 / 边界治理 → `fast-ai-refactor`。
 
 ## 边界
 

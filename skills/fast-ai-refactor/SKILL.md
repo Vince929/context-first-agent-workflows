@@ -1,9 +1,9 @@
 ---
-name: ai-friendly-refactor
+name: fast-ai-refactor
 description: Refactor an existing project toward app + modules + tools boundaries so coding agents can locate business context quickly. Analyze first, produce a reviewable migration plan, and wait for explicit human approval before implementation edits.
 ---
 
-# AI-Friendly Refactor
+# Fast AI Refactor
 
 ## Purpose
 

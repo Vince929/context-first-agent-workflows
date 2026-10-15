@@ -1,9 +1,9 @@
 ---
-name: human-readable-doc
+name: fast-ai-doc
 description: Create or revise human-readable Markdown documents for technical designs, architecture, APIs, research, conclusions, incident reviews, migrations, and release plans. Start with a table of contents, then place the document-type-specific summary, a Markdown table, and a Mermaid overview diagram in chapter one. Keep claims traceable and do not invent metrics, capabilities, conclusions, causes, or commitments.
 ---
 
-# Human-Readable Document
+# Fast AI Doc
 
 ## Purpose
 

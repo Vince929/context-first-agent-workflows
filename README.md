@@ -26,38 +26,38 @@ User goal
 
 | Layer | Artifact | Acceleration target |
 | --- | --- | --- |
-| Structure | `skills/ai-friendly-refactor/` | Reduce long-term context search cost by keeping a business request local. |
-| Navigation | `skills/project-map/` | Reduce cold-start time before an agent finds the first relevant files. |
-| Execution | `skills/context-first-code/` | Reduce unnecessary changes and repair loops after context is found. |
+| Structure | `skills/fast-ai-refactor/` | Reduce long-term context search cost by keeping a business request local. |
+| Navigation | `skills/fast-ai-map/` | Reduce cold-start time before an agent finds the first relevant files. |
+| Execution | `skills/fast-ai-code/` | Reduce unnecessary changes and repair loops after context is found. |
 
 ## Quick start
 
-1. Copy the skills into the skill directory used by your coding agent. For Claude Code-compatible projects:
+1. Copy the five sibling skill folders into the skill directory used by your coding agent. Run this from the workflow repository root and replace `.claude/skills/` with your target project's discovery directory if needed:
 
 ```bash
 mkdir -p .claude/skills
-cp -R skills/* .claude/skills/
+cp -R skills/fast-ai skills/fast-ai-* .claude/skills/
 ```
 
-2. Ask your agent to invoke `project-map` explicitly to create `PROJECT-MAP.md`. For example:
+2. Ask your agent to invoke `fast-ai-map` explicitly to create `PROJECT-MAP.md`. For example:
 
 ```text
-Use project-map to generate a compact PROJECT-MAP.md for this repository.
+Use fast-ai-map to generate a compact PROJECT-MAP.md for this repository.
 ```
 
 The skill performs the minimal navigation scan and writes the map. Use `templates/PROJECT-MAP.md` only when you want to draft or curate a map manually.
 
-3. Use the generated map as the first navigation step for project-specific work, and invoke `project-map` again only when high-value navigation facts change.
+3. Use the generated map as the first navigation step for project-specific work, and invoke `fast-ai-map` again only when high-value navigation facts change.
 
-4. When a repository needs structural work, invoke `ai-friendly-refactor`; it will analyze first, propose a migration plan, and wait for explicit approval before editing implementation files.
+4. When a repository needs structural work, invoke `fast-ai-refactor`; it will analyze first, propose a migration plan, and wait for explicit approval before editing implementation files.
 
-5. When creating or revising a technical design, research report, conclusion, incident review, migration, or release document, invoke `human-readable-doc`; it requires the first chapter to contain a summary, Markdown table, and Mermaid overview diagram.
+5. When creating or revising a technical design, research report, conclusion, incident review, migration, or release document, invoke `fast-ai-doc`; it requires the first chapter to contain a summary, Markdown table, and Mermaid overview diagram.
 
 See [Skills](skills/README.md), [adoption guidance](docs/adoption.md), and the [reference example](examples/task-management-web/README.md).
 
 ## Human-readable documents
 
-The skill pack also includes `human-readable-doc` for technical designs, research reports, conclusions, incident reviews, migrations, and release documents. It keeps claims reviewable by requiring a table of contents and placing a summary, Markdown table, and Mermaid overview diagram in chapter one; it also distinguishes confirmed facts, conclusions, and open items.
+The skill pack also includes `fast-ai-doc` for technical designs, research reports, conclusions, incident reviews, migrations, and release documents. It keeps claims reviewable by requiring a table of contents and placing a summary, Markdown table, and Mermaid overview diagram in chapter one; it also distinguishes confirmed facts, conclusions, and open items.
 
 ## What this is not
 

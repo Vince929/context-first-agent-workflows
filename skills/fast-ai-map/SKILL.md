@@ -1,9 +1,9 @@
 ---
-name: project-map
+name: fast-ai-map
 description: Create or incrementally update a compact root PROJECT-MAP.md that helps humans and coding agents navigate an unfamiliar repository. Use only when the user explicitly asks for a project map or map update.
 ---
 
-# Project Map
+# Fast AI Map
 
 ## Purpose
 

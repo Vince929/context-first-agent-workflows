@@ -6,19 +6,19 @@ Do not begin by moving every folder. Select a repository and one recurring task 
 
 ## Step 1: install the skills
 
-Copy the three skill folders to the discovery directory used by the selected coding agent. Preserve the `SKILL.md` file names and folder boundaries.
+Copy the five sibling folders (`fast-ai`, `fast-ai-code`, `fast-ai-refactor`, `fast-ai-map`, and `fast-ai-doc`) to the discovery directory used by the selected coding agent. Preserve folder names, frontmatter `name` values, and the flat layout. Use `fast-ai` as the default entry point to route project-related tasks, or invoke a task skill directly. When upgrading, remove old-name skill directories and any child skill copies nested inside the installed `fast-ai/` directory to avoid duplicate discovery. See the [installation instructions](../skills/README.md#installation).
 
 ## Step 2: create the project map
 
-Explicitly invoke `project-map` to create a root `PROJECT-MAP.md`. Review it with maintainers. The first version should be concise enough to read before a task, and accurate enough to select the next files.
+Explicitly invoke `fast-ai-map` to create a root `PROJECT-MAP.md`. Review it with maintainers. The first version should be concise enough to read before a task, and accurate enough to select the next files.
 
 ## Step 3: use context-first execution for normal work
 
-For a few weeks, use `context-first-code` for local implementation and real-error repair. Record where its assumptions fail: missing maps, unclear module ownership, ambiguous contracts, or validation gaps.
+For a few weeks, use `fast-ai-code` for local implementation and real-error repair. Record where its assumptions fail: missing maps, unclear module ownership, ambiguous contracts, or validation gaps.
 
 ## Step 4: choose one structural migration
 
-When a real pain point demonstrates that code is scattered, invoke `ai-friendly-refactor` for one module or boundary. Require a plan before edits. Do not convert the whole repository because a target diagram looks attractive.
+When a real pain point demonstrates that code is scattered, invoke `fast-ai-refactor` for one module or boundary. Require a plan before edits. Do not convert the whole repository because a target diagram looks attractive.
 
 ## Step 5: measure and publish learning
 

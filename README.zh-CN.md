@@ -26,30 +26,30 @@ Context-First 通过三层机制降低这笔上下文税：
 
 | 层次 | 对应产物 | 提速目标 |
 | --- | --- | --- |
-| 结构层 | `skills/ai-friendly-refactor/` | 通过业务上下文局部化，降低长期代码检索成本。 |
-| 导航层 | `skills/project-map/` | 缩短 Agent 初次找到相关文件前的冷启动时间。 |
-| 执行层 | `skills/context-first-code/` | 在找到上下文后，减少无关改动与返工回合。 |
+| 结构层 | `skills/fast-ai-refactor/` | 通过业务上下文局部化，降低长期代码检索成本。 |
+| 导航层 | `skills/fast-ai-map/` | 缩短 Agent 初次找到相关文件前的冷启动时间。 |
+| 执行层 | `skills/fast-ai-code/` | 在找到上下文后，减少无关改动与返工回合。 |
 
 ## 快速开始
 
-1. 将 `skills/` 中的目录复制到你的 Coding Agent 所使用的 Skill 目录。对于兼容 Claude Code 的项目：
+1. 将 `skills/` 中平铺的五个技能目录复制到你的 Coding Agent 所使用的 Skill 目录。在本工作流仓库根目录执行以下命令；如需安装到其他项目，请将 `.claude/skills/` 替换为目标项目的技能发现目录：
 
 ```bash
 mkdir -p .claude/skills
-cp -R skills/* .claude/skills/
+cp -R skills/fast-ai skills/fast-ai-* .claude/skills/
 ```
 
-2. 显式要求 Agent 调用 `project-map` 创建 `PROJECT-MAP.md`。例如：
+2. 显式要求 Agent 调用 `fast-ai-map` 创建 `PROJECT-MAP.md`。例如：
 
 ```text
-使用 project-map 为当前仓库生成一份精炼的 PROJECT-MAP.md。
+使用 fast-ai-map 为当前仓库生成一份精炼的 PROJECT-MAP.md。
 ```
 
 该 Skill 会执行最小导航扫描并写入地图。`templates/PROJECT-MAP.md` 只用于你希望手工起草或维护地图时。
 
-3. 将生成的地图作为项目任务的首轮导航上下文；只有模块、入口或核心链路等高价值导航事实变化时，才再次调用 `project-map` 增量更新。
+3. 将生成的地图作为项目任务的首轮导航上下文；只有模块、入口或核心链路等高价值导航事实变化时，才再次调用 `fast-ai-map` 增量更新。
 
-4. 当仓库需要模块迁移、目录治理或跨文件重构时，调用 `ai-friendly-refactor`。它会先分析、给出迁移计划，并在得到明确批准后才编辑实现文件。
+4. 当仓库需要模块迁移、目录治理或跨文件重构时，调用 `fast-ai-refactor`。它会先分析、给出迁移计划，并在得到明确批准后才编辑实现文件。
 
 详见 [Skill 说明](skills/README.md)、[落地指南](docs/adoption.md) 和[脱敏示例](examples/task-management-web/README.md)。
 

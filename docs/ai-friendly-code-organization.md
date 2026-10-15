@@ -80,4 +80,4 @@ A third stable caller is often a useful point to reconsider extraction, but it i
 
 ## Migration warning
 
-Moving files changes imports, tooling assumptions, public paths, and sometimes runtime behavior. Structural migration must start with a reviewable plan that lists ownership, file moves, dependency direction, compatibility policy, and validation. Use the `ai-friendly-refactor` skill rather than treating this document as permission for an autonomous rewrite.
+Moving files changes imports, tooling assumptions, public paths, and sometimes runtime behavior. Structural migration must start with a reviewable plan that lists ownership, file moves, dependency direction, compatibility policy, and validation. Use the `fast-ai-refactor` skill rather than treating this document as permission for an autonomous rewrite.
