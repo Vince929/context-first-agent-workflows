@@ -1,70 +1,32 @@
 ---
 name: fast-ai-map
-description: Create or incrementally update a compact root PROJECT-MAP.md that helps humans and coding agents navigate an unfamiliar repository. Use only when the user explicitly asks for a project map or map update.
+description: Create or incrementally update a concise root PROJECT-MAP.md with module responsibilities, entry points, and key flows. Use only when the user explicitly requests a project map or refresh.
 ---
 
 # Fast AI Map
 
-## Purpose
+Create a navigation index, not a file inventory or architecture review. Run only on explicit request; other skills must not generate or update the map automatically. Source code remains the truth.
 
-Maintain a short root-level `PROJECT-MAP.md` that helps select the next useful code context. A project map is a semantic index for cold-start navigation. It is not a file inventory, architecture review, migration proposal, or substitute for reading source code.
+## Create or update
 
-Run this skill only when a user explicitly asks to create, generate, update, or refresh a project map. Do not invoke it automatically from other skills.
+- Check the relevant repository's root `PROJECT-MAP.md`. Reuse its current contents if already in context; read it otherwise.
+- First creation: inspect only project configuration, source roots, runtime entry points, top-level business modules, and core platform/data paths needed to establish navigation facts.
+- Update: inspect the requested change scope and necessary direct files. Change only verified module paths, responsibilities, entry points, or key flows; leave the map untouched if none changed.
+- Do not inspect dependencies, build output, caches, version-control metadata, generated files, environment files, logs, or potentially sensitive files. Never include secrets, tokens, private addresses, or environment values.
 
-## First creation
+## Map format
 
-1. Check whether root `PROJECT-MAP.md` exists.
-2. If it does not exist, perform one minimal global scan of project configuration, source roots, runtime entry points, first-level business modules, and core platform/data paths.
-3. Ignore dependencies, build output, caches, version-control metadata, generated content, environment files, logs, and files that may contain sensitive information.
-4. Keep only facts that help an agent choose what to read next.
+Start with `# <Project name> Project Map` and one sentence describing its purpose and technology/runtime. Then:
 
-## Incremental update
+1. **Module navigation:** one table with `Path | Responsibility | Main entry point / key dependency`. List key source directories at one or two levels, stable business modules, shared platform capabilities, and important app/worker/CLI/native entry points. Use deeper paths only when needed for navigation.
+2. **Primary request / data paths:** one to three verified flows in the form `entry → key processing module → data source or output`; omit this section if it adds no useful navigation information.
 
-1. Read the existing map first.
-2. Inspect only the user-provided change scope and the direct files needed to verify whether high-value navigation facts changed.
-3. Update module paths, entry points, or major request/data paths only when they actually changed.
-4. If no high-value fact changed, leave the map untouched and explain why.
+Use the module table as the semantic directory outline; do not add a duplicate directory tree. Usually keep the map under 100 lines, shorter for small projects. Include only facts that help choose the next file to read; do not invent responsibilities or flows.
 
-## Required format
+Exclude per-file, class, function, field, and test inventories, technical-debt lists, design debates, and refactoring proposals. No filler or repeated explanations of table rows.
 
-Keep the map concise, usually near 100 lines or fewer.
+## Delivery
 
-```markdown
-# <Project name> Project Map
+Re-read once for verified paths, accurate responsibilities, and sensitive information. Reply with the map path and one line stating creation, changed facts, or why no update was needed; do not paste the map again.
 
-> One sentence: <project purpose + primary technology or runtime form>
-
-## Module navigation
-
-| Path | Responsibility | Main entry point / key dependency |
-| --- | --- | --- |
-| `<path>` | <responsibility> | <entry point, upstream, or downstream> |
-
-## Primary request / data paths
-
-1. `<entry> -> <key processing module> -> <data source or output>`
-```
-
-Keep only one to three high-frequency or structurally revealing paths.
-
-## Inclusion rules
-
-Include:
-
-- project purpose and runtime shape;
-- real source and application entry points;
-- stable business modules and their responsibilities;
-- shared platform capabilities that affect many tasks;
-- a small number of key request, data, or event paths;
-- special runtime entry points such as workers, CLI commands, or native clients.
-
-Exclude:
-
-- per-file, class, function, field, and test inventories;
-- secrets, tokens, private addresses, or environment values;
-- technical-debt lists, design debates, or refactoring proposals;
-- dependencies, build products, caches, logs, and generated directories.
-
-## Completion response
-
-State whether this was a first creation or incremental update, which navigation facts changed, and the map path. Do not run build, tests, lint, deployment, or browser validation as part of mapping.
+Do not run build, tests, lint, deployment, or browser validation as part of mapping. State unresolved facts or unperformed checks only when relevant.
