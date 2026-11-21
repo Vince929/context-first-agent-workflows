@@ -1,6 +1,6 @@
 ---
 name: fast-ai-doc
-description: Create or revise concise, evidence-backed Markdown for technical designs, architecture, APIs, research, incident reviews, migrations, and release plans. Lead with conclusions; include a table of contents and a chapter-one summary, table, and Mermaid overview. Use short sentences, remove repetition, and never invent facts or commitments.
+description: Create or revise concise, evidence-backed Markdown for technical designs, architecture, APIs, research, incident reviews, migrations, and release plans. Lead with conclusions; use matching decimal-numbered headings and table-of-contents entries (1, 1.1, 1.2), plus a chapter-one summary, table, and Mermaid overview. Use short sentences, remove repetition, and never invent facts or commitments.
 ---
 
 # Fast AI Doc
@@ -16,7 +16,7 @@ Write the shortest document that lets a reader understand the conclusion, eviden
 
 ## Structure
 
-Follow an explicitly requested format. Otherwise use a table of contents matching the headings, then:
+Follow an explicitly requested structure, but keep the heading and table-of-contents numbering below locked. Otherwise use a table of contents matching the headings, then:
 
 1. **Chapter one:** a brief conclusion or decision summary → one Markdown table → one Mermaid overview diagram, in that order and within the chapter. Cover the subject, affected systems, primary flow, and scope limits. Adapt labels to the document: design decision, research finding, incident conclusion, or implementation plan.
 2. **Necessary detail only:** add the background, design or analysis, contracts, trade-offs, evidence, or rollout details needed to explain or execute the conclusion. No fixed chapter count or empty sections.
@@ -27,6 +27,13 @@ For an explicitly requested minimal notice, changelog, or alternative format, om
 - Use tables for comparison or structured facts; use prose for the conclusion and diagrams for relationships. Do not restate every table row or diagram node in prose.
 - Mermaid nodes and arrows must represent confirmed actions, components, or analysis paths. Keep the overview on the main path; show uncertainty explicitly rather than inventing services or causal links. Use `<br/>` for label line breaks, never literal `\n` or `\\n`.
 - Include exact contracts and relevant failure handling, compatibility, security, data-loss risks, validation, or rollback details when the subject requires them. Describe sequence only where a real dependency exists.
+
+### Heading and table-of-contents numbering (locked)
+
+- Use decimal hierarchical numbering only: `1`, `1.1`, `1.2`, `2`, `2.1`; deeper levels continue as `1.1.1`. Separate the number and title with one space; do not append a period to the number.
+- Leave the document title (`#`) and table-of-contents heading unnumbered. Number body headings by level: `## 1 Summary`, `### 1.1 Key conclusions`, `### 1.2 Overview diagram`.
+- Use an indented bullet list for the table of contents, with each entry explicitly carrying the same number and title as its body heading. Do not use Markdown auto-numbering, Roman numerals, letters, Chinese chapter labels, or mixed numbering styles.
+- Start each level at 1 and increment siblings consecutively under their parent. After adding, removing, or moving sections, update heading numbers and table-of-contents entries together; update links too when present. This format remains mandatory whenever headings or a table of contents are included.
 
 ## Concise writing
 
@@ -40,5 +47,5 @@ For an explicitly requested minimal notice, changelog, or alternative format, om
 ## Review and delivery
 
 - Edit existing documents in place; preserve confirmed facts and useful structure. Do not rewrite unrelated sections or add companion documents unless requested.
-- Re-read once: check that claims are traceable; names, tables, and diagrams agree; the requested structure is satisfied; acceptance criteria are observable; and repetition is removed.
+- Re-read once: check that claims are traceable; names, tables, and diagrams agree; the requested structure is satisfied; heading and table-of-contents numbers use the locked decimal hierarchy and match without gaps; acceptance criteria are observable; and repetition is removed.
 - After writing the file, reply with its path and the key change. End with one or two lines naming unresolved items or unperformed validation when relevant; do not paste the document again or narrate the writing process.
